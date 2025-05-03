@@ -10,3 +10,41 @@
 |----|
 | ![](Screenshots/Screenshot%20%2816%29.png) |
 
+# Role Based Login System
+
+A robust **Role Based Login System** built with **Node.js**, **Express**, **MongoDB**, and **EJS**, featuring authentication, role-based access control, and full CRUD functionality for user-generated projects. This system demonstrates RESTful API design and secure session-based login using modern web technologies.
+
+## Features
+
+- User registration and login with hashed passwords
+- Role-based access control (Admin, User)
+- CRUD operations on user data (Admin only)
+- Users can create, update, view, and delete their own projects
+- Server-rendered views using EJS
+- RESTful API structure
+- Session management with `express-session` and MongoDB
+
+## Tech Stack
+
+- **Node.js** – JavaScript runtime
+- **Express** – Web framework
+- **MongoDB** – NoSQL database
+- **Mongoose** – ODM for MongoDB
+- **EJS** – Templating engine for views
+- **bcrypt** – Password hashing
+- **express-session** – User session handling
+- **connect-mongo** – MongoDB-based session store
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm
+- MongoDB installed locally or via cloud (MongoDB Atlas)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/role-based-login-system.git
+   cd role-based-login-system
