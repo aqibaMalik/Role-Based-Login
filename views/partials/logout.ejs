@@ -1,0 +1,51 @@
+<button
+  type="button"
+  id="logout"
+  onclick="logoutUser()"
+  class="btn btn-danger ms-2"
+>
+  Logout
+</button>
+
+<script>
+  async function logoutUser(params) {
+    try {
+      const req = await fetch("/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      if (!req.ok) {
+        return Toastify({
+          text: "Nobody logged in!",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "red",
+        }).showToast()
+      }
+
+      if (req.ok && req.redirected) {
+        Toastify({
+          text: "Logout successful!",
+          duration: 3000,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "green",
+        }).showToast()
+        return setTimeout(() => {
+          window.location.href = req.url
+        }, 2000)
+      }
+    } catch (err) {
+      Toastify({
+        text: err.message,
+        duration: 3000,
+        gravity: "top",
+        position: "right",
+        backgroundColor: "green",
+      }).showToast()
+    }
+  }
+</script>

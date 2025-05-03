@@ -1,0 +1,24 @@
+{
+  "name": "role-base-login",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.5",
+    "bootstrap-icons": "^1.11.3",
+    "ejs": "^3.1.10",
+    "express": "^4.18.2",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.14.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.0.3"
+  }
+}

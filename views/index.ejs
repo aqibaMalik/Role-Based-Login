@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/header') %>
+  <body>
+    <h1 class="text-center">Login Page</h1>
+    <form
+      action="/login"
+      method="POST"
+      enctype="application/x-www-form-urlencoded"
+      class="p-lg-5"
+    >
+      <div class="row mb-3 w-screen">
+        <label for="username" class="col-sm-2 col-form-label">Username</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="username"
+            required
+          />
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <label for="role" class="col-sm-2 col-form-label">Role</label>
+
+        <div class="col-sm-10">
+          <select class="form-select mb-3" name="role" id="role" required>
+            <option selected disabled>Select your role</option>
+            <option value="admin">Admin</option>
+            <option value="user" selected>user</option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div>
+          <button type="submit" class="btn btn-primary">Sign in</button>
+          <a role="button" class="btn btn-dark" href="./Signup">Signup</a>
+        </div>
+        <%- include('./partials/logout') %>
+      </div>
+    </form>
+
+    <script>
+      const form = document.querySelector("form")
+      const usernameInput = document.querySelector("input[name='username']")
+      const passwordInput = document.querySelector("input[name='password']")
+      const roleSelect = document.querySelector("select[name='role']")
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault()
+
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username: usernameInput.value,
+            password: passwordInput.value,
+            role: roleSelect.value,
+          }),
+        })
+          .then((res) => {
+            if (res.ok && res.redirected) {
+              Toastify({
+                text: "Login successful!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "green",
+              }).showToast()
+              return setTimeout(() => {
+                window.location.href = res.url
+              }, 2000)
+            } else {
+              res.text().then((text) => {
+                Toastify({
+                  text: "No user with these credentials found!",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "coral",
+                }).showToast()
+              })
+            }
+          })
+          .catch((error) => {
+            Toastify({
+              text: error.message,
+              duration: 3000,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "red",
+            }).showToast()
+          })
+      })
+    </script>
+  </body>
+</html>

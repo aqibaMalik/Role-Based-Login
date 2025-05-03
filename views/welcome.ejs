@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/header') %>
+  <body>
+    <h1 class="text-center">
+      Welcome <% if(role == 'user') { %> user <% } else { %> Admin <% } %> <%=
+      username %>
+    </h1>
+
+    <%- include('./partials/userProfile') -%>
+    <h2 class="text-secondary ps-3">All Projects</h2>
+    <% if(projects.length > 0){ %>
+    <table class="table table-striped w-100 ms-3">
+      <thead>
+        <tr>
+          <th>S. No</th>
+          <th>Project Title</th>
+          <th>Project Description</th>
+          <th>Link of Project</th>
+          <th>
+            Delete Project
+            <small class="text-sm text-muted"
+              >You can delete only ones you created</small
+            >
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% projects.forEach((project, index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= project.title %></td>
+          <td><%= project.description %></td>
+          <td>
+            <a
+              role="button"
+              class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+              onclick="accessProject(<%= project.id %>)"
+              href="#"
+              >Click Link Here</a
+            >
+          </td>
+          <td>
+            <button
+              class="btn btn-danger rounded-pill"
+              onclick="deleteProject(<%= project.id %>)"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %> <%- include('./partials/ProjectForm') -%> <%-
+    include('./partials/logout') -%>
+    <script>
+      function deleteProject(id) {
+        fetch(`/deleteProject/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => {
+            if (res.ok) {
+              Toastify({
+                text: "Project deleted successfully!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "green",
+              }).showToast()
+              setTimeout(() => {
+                window.location.reload()
+              }, 2000)
+            } else {
+              Toastify({
+                text: "You are not allowed to delete this project!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "red",
+              }).showToast()
+            }
+          })
+          .catch((err) => {
+            Toastify({
+              text: err.message,
+              duration: 3000,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "red",
+            }).showToast()
+          })
+      }
+
+      function accessProject(id) {
+        fetch(`/projects/${id}`)
+          .then((res) => {
+            if (res.ok) {
+              Toastify({
+                text: "You are allowed to access this project!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "green",
+              }).showToast()
+            } else {
+              Toastify({
+                text: "Access denied to this project!",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "red",
+              }).showToast()
+            }
+          })
+          .catch((err) => {
+            Toastify({
+              text: err.message,
+              duration: 3000,
+              gravity: "top",
+              position: "right",
+              backgroundColor: "red",
+            }).showToast()
+          })
+      }
+    </script>
+  </body>
+</html>
