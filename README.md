@@ -1,4 +1,4 @@
-| S1 | S2 | S3 |
+         | S1 | S2 | S3 |
 |----|----|----|
 | ![](Screenshots/Screenshot%20%285%29.png) | ![](Screenshots/Screenshot%20%287%29.png) | ![](Screenshots/Screenshot%20%289%29.png) |
 
@@ -49,6 +49,11 @@ A robust **Role Based Login System** built with **Node.js**, **Express**, **Mong
    git clone https://github.com/aqibaMalik/role-based-login-system.git
    cd role-based-login-system
 
-2. Add.env file in the directory having
-   **MONGODB_URI**
-   **SECRET_KEY** 
+2. Add .env file in the your directory with
+  - **MONGODB_URI**
+  - **SESSION_SECRET**
+
+3. npm install
+4. npm start
+
+   ** NOW EXPLORE **
