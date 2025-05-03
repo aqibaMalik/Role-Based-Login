@@ -1,4 +1,4 @@
-         | S1 | S2 | S3 |
+| S1 | S2 | S3 |
 |----|----|----|
 | ![](Screenshots/Screenshot%20%285%29.png) | ![](Screenshots/Screenshot%20%287%29.png) | ![](Screenshots/Screenshot%20%289%29.png) |
 
@@ -56,4 +56,4 @@ A robust **Role Based Login System** built with **Node.js**, **Express**, **Mong
 3. npm install
 4. npm start
 
-   ** NOW EXPLORE **
+   **NOW EXPLORE**
