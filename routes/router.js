@@ -2,13 +2,14 @@ const router = require("express").Router()
 const {
   authenticateUser,
   checkUserRole,
-  checkProjectAccess,
+
   updateUser,
   createUser,
 } = require("../controllers/loginController")
 const {
   createProject,
   deleteProject,
+  checkProjectAccess,
 } = require("../controllers/projectsController")
 
 router.get("/", (req, res) => {

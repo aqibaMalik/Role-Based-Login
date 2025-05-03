@@ -35,7 +35,7 @@
             <a
               role="button"
               class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
-              onclick="accessProject(<%= project.id %>)"
+              onclick="accessProject('<%= project._id %>')"
               href="#"
               >Click Link Here</a
             >
@@ -43,7 +43,7 @@
           <td>
             <button
               class="btn btn-danger rounded-pill"
-              onclick="deleteProject(<%= project.id %>)"
+              onclick="deleteProject('<%= project._id %>')"
             >
               Delete
             </button>

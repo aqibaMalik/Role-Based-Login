@@ -1,11 +1,10 @@
 const { getProjects } = require("../utils/utils")
-const { Project } = require("../models/User")
+const { Project } = require("../models/user_project_model")
+const { User } = require("../models/user_project_model")
 
 async function createProject(req, res, next) {
   const { title, description } = req.body
-  let id = (await getProjects().then((projects) => projects.length)) + 1
   const newProject = {
-    id,
     createdBy: req.session.user._id,
     title,
     description,
@@ -20,10 +19,31 @@ async function createProject(req, res, next) {
   }
 }
 
+const checkProjectAccess = async (req, res, next) => {
+  try {
+    const projectId = req.params.projectId
+
+    const user = await User.findOne({ _id: req.session.user._id })
+
+    const project = await Project.findOne({
+      _id: projectId,
+      createdBy: user._id,
+    }).populate("createdBy")
+
+    if (!project) {
+      return res.status(403).send("Unauthorized")
+    }
+    req.project = project
+    next()
+  } catch (error) {
+    res.status(500).send("Internal server error")
+  }
+}
+
 async function deleteProject(req, res, next) {
   const projectId = req.params.projectId
 
-  const project = await Project.findOne({ id: projectId })
+  const project = await Project.findOne({ _id: projectId })
 
   if (!project) {
     return res.status(403).send("Unauthorized")
@@ -32,7 +52,7 @@ async function deleteProject(req, res, next) {
   try {
     await project.deleteOne()
     req.session.projects = req.session.projects.filter(
-      (p) => p.id !== projectId
+      (p) => p._id !== projectId
     )
     res.status(200).send("Project deleted successfully")
     next()
@@ -41,4 +61,4 @@ async function deleteProject(req, res, next) {
   }
 }
 
-module.exports = { createProject, deleteProject }
+module.exports = { createProject, deleteProject, checkProjectAccess }

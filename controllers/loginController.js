@@ -1,4 +1,4 @@
-const { User, Project } = require("../models/User")
+const { User } = require("../models/user_project_model")
 const { getProjects } = require("../utils/utils")
 
 const checkUserRole = (requiredRole) => {
@@ -84,31 +84,9 @@ async function updateUser(req, res) {
   }
 }
 
-const checkProjectAccess = async (req, res, next) => {
-  try {
-    const projectId = req.params.projectId
-
-    const user = await User.findOne({ _id: req.session.user._id })
-
-    const project = await Project.findOne({
-      id: projectId,
-      createdBy: user._id,
-    }).populate("createdBy")
-
-    if (!project) {
-      return res.status(403).send("Unauthorized")
-    }
-    req.project = project
-    next()
-  } catch (error) {
-    res.status(500).send("Internal server error")
-  }
-}
-
 module.exports = {
   checkUserRole,
   authenticateUser,
-  checkProjectAccess,
   updateUser,
   createUser,
 }

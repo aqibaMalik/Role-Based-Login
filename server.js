@@ -6,7 +6,7 @@ const app = express()
 const port = 3000
 const mongoose = require("mongoose")
 const session = require("express-session")
-const loginRouter = require("./routes/loginRouter")
+const router = require("./routes/router")
 
 mongoose
   .connect(process.env.MONGODB_URI, {
@@ -37,7 +37,7 @@ app.use(
   })
 )
 
-app.use("/", loginRouter)
+app.use("/", router)
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`)

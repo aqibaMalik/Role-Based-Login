@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema({
 })
 
 const projectSchema = new mongoose.Schema({
-  id: { type: String },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
