@@ -46,7 +46,7 @@ A robust **Role Based Login System** built with **Node.js**, **Express**, **Mong
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/aqibaMalik/role-based-login-system.git
+   git clone https://github.com/aqibaMalik/Role-Based-Login
    cd role-based-login-system
 
 2. Add .env file in the your directory with
